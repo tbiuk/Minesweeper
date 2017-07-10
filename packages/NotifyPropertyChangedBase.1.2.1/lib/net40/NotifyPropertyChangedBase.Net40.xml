@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NotifyPropertyChangedBase.Net40</name>
+    </assembly>
+    <members>
+        <member name="T:NotifyPropertyChangedBase.NotifyPropertyChanged">
+            <summary>
+            Abstract class implementing the <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface.
+            </summary>
+        </member>
+        <member name="P:NotifyPropertyChangedBase.NotifyPropertyChanged.IsPropertyChangedCallbackInvokingEnabled">
+            <summary>
+            Gets or sets the value indicating whether the <see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/> specific for each property should be invoked
+            from the <see cref="M:NotifyPropertyChangedBase.NotifyPropertyChanged.SetValue(System.Object,System.String)"/> and <see cref="M:NotifyPropertyChangedBase.NotifyPropertyChanged.ForceSetValue(System.Object,System.String)"/> methods
+            when a property changes. The default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:NotifyPropertyChangedBase.NotifyPropertyChanged.IsPropertyChangedEventInvokingEnabled">
+            <summary>
+            Gets or sets the value indicating whether the <see cref="E:NotifyPropertyChangedBase.NotifyPropertyChanged.PropertyChanged"/> event should be invoked
+            from the <see cref="M:NotifyPropertyChangedBase.NotifyPropertyChanged.SetValue(System.Object,System.String)"/> and <see cref="M:NotifyPropertyChangedBase.NotifyPropertyChanged.ForceSetValue(System.Object,System.String)"/> methods
+            when a property changes. The default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="E:NotifyPropertyChangedBase.NotifyPropertyChanged.PropertyChanged">
+            <summary>
+            Implementation of the <see cref="E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged"/> event. Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NotifyPropertyChangedBase.NotifyPropertyChanged"/> class.
+            </summary>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.RegisterProperty(System.String,System.Type,System.Object)">
+            <summary>
+            Registers a new property for the actual instance of <see cref="T:NotifyPropertyChangedBase.NotifyPropertyChanged"/>.
+            </summary>
+            <param name="name">Name of the registered property.</param>
+            <param name="type">Type of the registered property.</param>
+            <param name="defaultValue">Default value of the registered property.</param>
+            <exception cref="T:System.ArgumentException">
+                <para>
+                    Parameter <paramref name="name"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Value of <paramref name="defaultValue"/> cannot be assigned to a property of type in <paramref name="type"/>.
+                </para>
+                <para>
+                    Instance already contains registered property named as specified in parameter <paramref name="name"/>.
+                </para>
+            </exception>
+            <exception cref="T:System.ArgumentNullException">Parameter <paramref name="type"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.RegisterProperty(System.String,System.Type,System.Object,NotifyPropertyChangedBase.PropertyChangedCallbackHandler)">
+            <summary>
+            Registers a new property for the actual instance of <see cref="T:NotifyPropertyChangedBase.NotifyPropertyChanged"/>.
+            </summary>
+            <param name="name">Name of the registered property.</param>
+            <param name="type">Type of the registered property.</param>
+            <param name="defaultValue">Default value of the registered property.</param>
+            <param name="propertyChangedCallback">Callback invoked right after the registered property changes.</param>
+            <exception cref="T:System.ArgumentException">
+                <para>
+                    Parameter <paramref name="name"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Value of <paramref name="defaultValue"/> cannot be assigned to a property of type in <paramref name="type"/>.
+                </para>
+                <para>
+                    Instance already contains registered property named as specified in parameter <paramref name="name"/>.
+                </para>
+            </exception>
+            <exception cref="T:System.ArgumentNullException">Parameter <paramref name="type"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.RegisterPropertyChangedCallback(System.String,NotifyPropertyChangedBase.PropertyChangedCallbackHandler)">
+            <summary>
+            Registers the <paramref name="propertyChangedCallback"/> as a <see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/> to a registered property.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="propertyChangedCallback"><see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/> to be registered.</param>
+            <exception cref="T:System.ArgumentNullException">
+                <para>
+                    Parameter <paramref name="propertyName"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Actual instance does not contain registered property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+                <para>
+                    Parameter <paramref name="propertyChangedCallback"/> is <c>null</c>.
+                </para>
+            </exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.UnregisterPropertyChangedCallback(System.String,NotifyPropertyChangedBase.PropertyChangedCallbackHandler)">
+            <summary>
+            Unregisters the <paramref name="propertyChangedCallback"/> from a registered property.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="propertyChangedCallback"><see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/> to be unregistered.</param>
+            <exception cref="T:System.ArgumentNullException">
+                <para>
+                    Parameter <paramref name="propertyName"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Actual instance does not contain registered property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+                <para>
+                    Parameter <paramref name="propertyChangedCallback"/> is <c>null</c>.
+                </para>
+            </exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.GetValue(System.String)">
+            <summary>
+            Returns the current value of a registered property.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <returns>Value of the property.</returns>
+            <exception cref="T:System.ArgumentException">
+                <para>
+                    Parameter <paramref name="propertyName"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Actual instance does not contain registered property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+            </exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.ForceSetValue(System.Object,System.String)">
+            <summary>
+            Sets new value to a registered property even if it is equal and invokes the <see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/> for the property if specified before
+            and if the value of <see cref="P:NotifyPropertyChangedBase.NotifyPropertyChanged.IsPropertyChangedCallbackInvokingEnabled"/> is <c>true</c> and also invokes the <see cref="E:NotifyPropertyChangedBase.NotifyPropertyChanged.PropertyChanged"/> event
+            if value of <see cref="P:NotifyPropertyChangedBase.NotifyPropertyChanged.IsPropertyChangedEventInvokingEnabled"/> is <c>true</c>.
+            </summary>
+            <param name="value">New value for the property.</param>
+            <param name="propertyName">Name of the property.</param>
+            <exception cref="T:System.ArgumentException">
+                <para>
+                    Value of the <paramref name="value"/> parameter cannot be assigned to the type of property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+                <para>
+                    Parameter <paramref name="propertyName"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Actual instance does not contain registered property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+            </exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.SetValue(System.Object,System.String)">
+            <summary>
+            Sets a new value to a registered property if it's not equal and invokes the <see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/> for the property if specified before
+            and if the value of <see cref="P:NotifyPropertyChangedBase.NotifyPropertyChanged.IsPropertyChangedCallbackInvokingEnabled"/> is <c>true</c> and also invokes the <see cref="E:NotifyPropertyChangedBase.NotifyPropertyChanged.PropertyChanged"/> event
+            if value of <see cref="P:NotifyPropertyChangedBase.NotifyPropertyChanged.IsPropertyChangedEventInvokingEnabled"/> is <c>true</c>.
+            </summary>
+            <param name="value">New value for the property.</param>
+            <param name="propertyName">Name of the property.</param>
+            <exception cref="T:System.ArgumentException">
+                <para>
+                    Value of the <paramref name="value"/> parameter cannot be assigned to the type of property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+                <para>
+                    Parameter <paramref name="propertyName"/> is <c>null</c> or white space.
+                </para>
+                <para>
+                    Actual instance does not contain registered property with name specified in the <paramref name="propertyName"/> parameter.
+                </para>
+            </exception>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.NotifyPropertyChanged.OnPropertyChanged(System.String)">
+            <summary>
+            Invokes the <see cref="E:NotifyPropertyChangedBase.NotifyPropertyChanged.PropertyChanged"/> event.
+            </summary>
+            <param name="propertyName">Name of the changed property.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="propertyName"/> is <c>null</c> or white space.</exception>
+        </member>
+        <member name="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler">
+            <summary>
+            Represents the callback that is invoked when a registered property value of the <see cref="T:NotifyPropertyChangedBase.NotifyPropertyChanged"/> class changes before the <see cref="E:NotifyPropertyChangedBase.NotifyPropertyChanged.PropertyChanged"/> event.
+            </summary>
+            <param name="sender">Instance of the <see cref="T:NotifyPropertyChangedBase.NotifyPropertyChanged"/> class that invoked this callback.</param>
+            <param name="e">Callback data containing info about the changed property.</param>
+        </member>
+        <member name="T:NotifyPropertyChangedBase.PropertyChangedCallbackArgs">
+            <summary>
+            Callback data containing info about the changed property in the <see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackHandler"/>.
+            </summary>
+        </member>
+        <member name="P:NotifyPropertyChangedBase.PropertyChangedCallbackArgs.Handled">
+            <summary>
+            Gets or sets a value that marks the callback as handled.
+            </summary>
+        </member>
+        <member name="P:NotifyPropertyChangedBase.PropertyChangedCallbackArgs.OldValue">
+            <summary>
+            Gets the previous value of the changed property.
+            </summary>
+        </member>
+        <member name="P:NotifyPropertyChangedBase.PropertyChangedCallbackArgs.NewValue">
+            <summary>
+            Gets the current value of the changed property.
+            </summary>
+        </member>
+        <member name="M:NotifyPropertyChangedBase.PropertyChangedCallbackArgs.#ctor(System.Object,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NotifyPropertyChangedBase.PropertyChangedCallbackArgs"/> class.
+            </summary>
+            <param name="oldValue">Previous value of the changed property.</param>
+            <param name="newValue">Current value of the changed property.</param>
+        </member>
+    </members>
+</doc>
